@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            background-color: aquamarine;
+            
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #image {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+        <form id="calculator-form">
+            <label for="weight">Peso (kg):</label>
+            <input type="number" id="weight" name="weight" required>
+            <label for="height">Altura (m):</label>
+            <input type="number" id="height" name="height" required>
+            <button type="button" id="calculate-button">Calcular IMC</button>
+        </form>
+        <p id="result"></p>
+        <img id="image" src="imagen.jpg" alt="Estado del paciente">
+    </div>
+
+    <script>
+        document.getElementById("calculate-button").addEventListener("click", function() {
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+
+            if (isNaN(weight) || isNaN(height)) {
+                alert("Por favor, ingrese números válidos para el peso y la altura.");
+            } else {
+                const bmi = weight / (height * height);
+                document.getElementById("result").textContent = `Tu IMC es: ${bmi.toFixed(2)}`;
+
+                let imageSrc = "";
+                if (bmi < 18.5) {
+                    imageSrc = "bajopeso.jpg";
+                    document.getElementById("result").textContent += " - Bajo Peso";
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    imageSrc = "pesoideal.jpg";
+                    document.getElementById("result").textContent += " - Peso Ideal";
+                    } else if (bmi >= 24.9 && bmi < 29.9) {
+                    imageSrc = "sobrepeso1.jpg";
+                    document.getElementById("result").textContent += " - Sobre Peso";
+                } else {
+                    imageSrc = "obesidad.jpg";
+                    document.getElementById("result").textContent += " - OBESIDAD";
+                }
+
+                document.getElementById("image").src = imageSrc;
+            }
+        });
+    </script>
+</body>
+</html>
